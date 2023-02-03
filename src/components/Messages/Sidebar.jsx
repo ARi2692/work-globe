@@ -31,18 +31,18 @@ function Sidebar() {
   const nameRef = useRef();
 
   const [value, setValue] = useState(0);
-  const [conSelect, setConSelect] = useState("");
-  const [selectedContactIds, setSelectedContactIds] = useState([]);
+  // const [conSelect, setConSelect] = useState("");
+  // const [selectedContactIds, setSelectedContactIds] = useState([]);
 
   const { createContact, contacts } = useContacts();
   const { createConversation } = useConversations();
 
   // conversation modal
-  const {
-    open: openConver,
-    onClose: onCloseConver,
-    onOpen: onOpenConver,
-  } = useDisclosure();
+  // const {
+  //   open: openConver,
+  //   onClose: onCloseConver,
+  //   onOpen: onOpenConver,
+  // } = useDisclosure();
   // contact modal
   const {
     open: openContact,
@@ -57,26 +57,28 @@ function Sidebar() {
   const handleCreateContact = () => {
     console.log(walletAddrRef.current.value, nameRef.current.value);
     createContact(walletAddrRef.current.value, nameRef.current.value);
+    console.log(nameRef.current.value, walletAddrRef.current.value);
+    createConversation([walletAddrRef.current.value]);
   };
 
-  const handleCreateConversation = (e) => {
-    e.preventDefault();
-    console.log(selectedContactIds)
-    createConversation(selectedContactIds);
-    onCloseConver();
-  };
+  // const handleCreateConversation = (e) => {
+  //   e.preventDefault();
+  //   console.log("selectedIDS: ", selectedContactIds)
+  //   createConversation(selectedContactIds);
+  //   onCloseConver();
+  // };
 
-  const handleCheckboxChange = (contactId) => {
-    setSelectedContactIds((prevSelectedContactIds) => {
-      if (prevSelectedContactIds.includes(contactId)) {
-        return prevSelectedContactIds.filter((prevId) => {
-          return contactId !== prevId;
-        });
-      } else {
-        return [...prevSelectedContactIds, contactId];
-      }
-    });
-  };
+  // const handleCheckboxChange = (contactId) => {
+  //   setSelectedContactIds((prevSelectedContactIds) => {
+  //     if (prevSelectedContactIds.includes(contactId)) {
+  //       return prevSelectedContactIds.filter((prevId) => {
+  //         return contactId !== prevId;
+  //       });
+  //     } else {
+  //       return [...prevSelectedContactIds, contactId];
+  //     }
+  //   });
+  // };
 
   return (
     <Box
@@ -89,23 +91,24 @@ function Sidebar() {
       position="relative"
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
+        {/* <Tabs
           value={value}
           onChange={handleChange}
           aria-label="message sidebar"
-        >
-          <Tab icon={<MessageIcon />} label="Conversations" {...a11yProps(0)} />
-          <Tab icon={<ContactsIcon />} label="Contacts" {...a11yProps(1)} />
-        </Tabs>
+        > */}
+          {/* <Tab icon={<MessageIcon />} label="Conversations" {...a11yProps(0)} /> */}
+          {/* <Tab icon={<ContactsIcon />} label="Contacts" {...a11yProps(1)} /> */}
+        {/* </Tabs> */}
+        <Tab icon={<MessageIcon />} label="Contacts" {...a11yProps(0)} />
       </Box>
       <TabPanel value={value} index={0}>
         <Conversations />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      {/* <TabPanel value={value} index={1}>
         <Contacts />
-      </TabPanel>
+      </TabPanel> */}
 
-      {value === 0 ? (
+      {/* {value === 0 ? (
         <Button
           variant="contained"
           sx={{
@@ -120,7 +123,7 @@ function Sidebar() {
         >
           New Conversation
         </Button>
-      ) : (
+      ) : ( */}
         <Button
           variant="contained"
           sx={{
@@ -135,10 +138,10 @@ function Sidebar() {
         >
           New Contact
         </Button>
-      )}
+      {/* )} */}
 
       {/* Modal for conversation */}
-      <PromptModal
+      {/* <PromptModal
         title="Create conversation"
         open={openConver}
         onClose={onCloseConver}
@@ -159,7 +162,7 @@ function Sidebar() {
             Create
           </Button>
         </form>
-      </PromptModal>
+      </PromptModal> */}
 
       {/* Modal for Contact */}
       <PromptModal
